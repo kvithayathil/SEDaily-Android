@@ -5,4 +5,34 @@
     <item>1.5x</item>
     <item>2x</item>
   </string-array>
+
+
+  <!-- Category name array - ordering matters -->
+  <string-array name="category_name_array">
+    <item>@string/all</item>
+    <item>@string/business_and_philosophy</item>
+    <item>@string/blockchain</item>
+    <item>@string/cloud_engineering</item>
+    <item>@string/data</item>
+    <item>@string/javascript</item>
+    <item>@string/machine_learning</item>
+    <item>@string/open_source</item>
+    <item>@string/security</item>
+    <item>@string/hackers</item>
+    <item>@string/greatest_hits</item>
+  </string-array>
+
+  <integer-array name="category_id_array">
+    <item>@integer/category_id_all</item>
+    <item>@integer/category_id_business_and_philosophy</item>
+    <item>@integer/category_id_blockchain</item>
+    <item>@integer/category_id_cloud_engineering</item>
+    <item>@integer/category_id_data</item>
+    <item>@integer/category_id_javascript</item>
+    <item>@integer/category_id_machine_learning</item>
+    <item>@integer/category_id_open_source</item>
+    <item>@integer/category_id_security</item>
+    <item>@integer/category_id_hackers</item>
+    <item>@integer/category_id_greatest_hits</item>
+  </integer-array>
 </resources>

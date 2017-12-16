@@ -23,7 +23,7 @@
 
 
   <string name="just_for_you">Just For You</string>
-  <string name="greatest_hits">Greatest Hits</string>
+  <string name="title_greatest_hits">@string/greatest_hits</string>
   <string name="latest">Latest</string>
 
   <string name="currently_playing_song">Song currently playing</string>
@@ -36,5 +36,4 @@
   <string name="up_vote">Up Vote</string>
   <string name="down_vote">Down Vote</string>
   <string name="podcast_image">Main Podcast Image</string>
-
 </resources>

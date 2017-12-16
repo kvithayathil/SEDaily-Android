@@ -2,6 +2,7 @@ package com.koalatea.thehollidayinn.softwareengineeringdaily.test.dagger;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.test.mock.MockContext;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -35,6 +36,11 @@ class UnitTestAppModule {
     @AppScope
     SharedPreferences providesPreferences() {
         return mock(SharedPreferences.class);
+    }
+
+    @Provides
+    @AppScope Resources providesAppResources() {
+        return mock(Resources.class);
     }
 
     @Provides

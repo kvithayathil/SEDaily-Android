@@ -3,6 +3,7 @@ package com.koalatea.thehollidayinn.softwareengineeringdaily.app;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import android.content.res.Resources;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.koalatea.thehollidayinn.softwareengineeringdaily.analytics.AnalyticsFacade;
@@ -34,6 +35,7 @@ import dagger.Component;
 public interface AppComponent {
     Context context();
     SharedPreferences sharedPreferences();
+    Resources appResources();
     LocalTextUtils textUtils();
     AuthPreference authPreference();
     PostItemMapper mapper();

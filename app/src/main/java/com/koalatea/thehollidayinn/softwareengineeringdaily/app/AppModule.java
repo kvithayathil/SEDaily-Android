@@ -3,6 +3,7 @@ package com.koalatea.thehollidayinn.softwareengineeringdaily.app;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.util.ArrayMap;
@@ -37,6 +38,12 @@ public class AppModule {
     @AppScope
     Context providesContext() {
         return this.app;
+    }
+
+    @Provides
+    @AppScope
+    Resources providesAppResources(@NonNull Context context) {
+        return context.getResources();
     }
 
     @Provides

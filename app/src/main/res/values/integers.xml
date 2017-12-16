@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <integer name="category_id_all">-1</integer>
+  <integer name="category_id_business_and_philosophy">1068</integer>
+  <integer name="category_id_blockchain">1082</integer>
+  <integer name="category_id_cloud_engineering">1079</integer>
+  <integer name="category_id_data">1081</integer>
+  <integer name="category_id_javascript">1084</integer>
+  <integer name="category_id_machine_learning">1080</integer>
+  <integer name="category_id_open_source">1078</integer>
+  <integer name="category_id_security">1083</integer>
+  <integer name="category_id_hackers">1085</integer>
+  <integer name="category_id_greatest_hits">1069</integer>
+</resources>

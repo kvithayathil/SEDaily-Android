@@ -11,4 +11,17 @@
     <string name="required_field">Required Field</string>
     <string name="unable_to_authenticate">Unable to add account</string>
     <string name="unable_to_connect_to_server">Unable to connect to server</string>
+
+
+    <string name="all">All</string>
+    <string name="business_and_philosophy">Business &amp; Philosophy</string>
+    <string name="blockchain">Blockchain</string>
+    <string name="cloud_engineering">Cloud Engineering</string>
+    <string name="data">Data</string>
+    <string name="javascript">Javascript</string>
+    <string name="machine_learning">Machine Learning</string>
+    <string name="open_source">Open Source</string>
+    <string name="security">Security</string>
+    <string name="hackers">Hackers</string>
+    <string name="greatest_hits">Greatest Hits</string>
 </resources>
