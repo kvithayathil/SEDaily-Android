@@ -21,14 +21,26 @@ public interface EpisodePostNetworkService {
     @GET("posts?type=top")
     Observable<List<PostResponse>> getTopPosts();
 
+    @GET("posts?type=top")
+    Observable<List<PostResponse>> getTopPostsBySearch(@Query("search") String searchString);
+
     @GET("posts")
-    Observable<List<PostResponse>> getPostsByCategory(@Query("categories") String categoryId);
+    Observable<List<PostResponse>> getPostsByCategory(@Query("categories") long categoryId);
 
     @GET("posts")
     Observable<List<PostResponse>> getPostBySearchString(@Query("search") String searchString);
 
+    @GET("posts")
+    Observable<List<PostResponse>> getPostByCategoryAndSearch(
+        @Query("categories") long categoryId,
+        @Query("search") String searchString);
+
     @GET("posts/recommendations")
     Observable<List<PostResponse>> getRecommendations();
+
+    @GET("posts/recommendations")
+    Observable<List<PostResponse>> getRecommendationsBySearch(
+      @Query("search") String searchString);
 
     @POST("posts/{postid}/upvote")
     Completable upVote(@Path("postid") String postId);

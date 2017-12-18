@@ -16,6 +16,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Spy;
 
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -27,7 +29,7 @@ import static org.mockito.Mockito.verify;
  */
 public class PostRepositoryImplTest extends BaseUnitTest {
 
-    PostRepositoryImpl repo;
+    private PostRepositoryImpl repo;
 
     @Mock
     EpisodePostNetworkService api;
@@ -55,17 +57,28 @@ public class PostRepositoryImplTest extends BaseUnitTest {
 
     @Test
     public void getPostByCategory_returns_list_of_post_items_with_expected_count() throws Exception {
-        final List<PostResponse> inputs = createPostResponseList(3);
-        doReturn(Observable.just(inputs)).when(api).getPostsByCategory(anyString());
-        repo.getPostByCategory("category")
+        final List<PostResponse> inputs = createPostResponseList(5);
+        doReturn(Observable.just(inputs)).when(api).getPostsByCategory(anyLong());
+        repo.getPostByCategory(-1L)
                 .test().assertNoErrors().assertValue(new Predicate<List<PostItem>>() {
-            @Override
-            public boolean test(@NonNull List<PostItem> postItems) throws Exception {
+            @Override public boolean test(List<PostItem> postItems) throws Exception {
                 return postItems.size() == inputs.size();
             }
         });
+        verify(api).getPostsByCategory(eq(-1L));
+    }
 
-        verify(api).getPostsByCategory(eq("category"));
+    @Test
+    public void getPostByCategoryAndSearch_returns_list_of_post_items_with_expected_count() throws Exception {
+        final List<PostResponse> inputs = createPostResponseList(5);
+        doReturn(Observable.just(inputs)).when(api).getPostByCategoryAndSearch(anyLong(), anyString());
+        repo.getPostsByCategoryWithFilter(-1L, "search")
+            .test().assertNoErrors().assertValue(new Predicate<List<PostItem>>() {
+            @Override public boolean test(List<PostItem> postItems) throws Exception {
+                return postItems.size() == inputs.size();
+            }
+        });
+        verify(api).getPostByCategoryAndSearch(eq(-1L), eq("search"));
     }
 
     @Test
@@ -97,6 +110,20 @@ public class PostRepositoryImplTest extends BaseUnitTest {
     }
 
     @Test
+    public void getTopPostsBySearch_returns_list_of_post_items_with_expected_count() throws Exception {
+        final List<PostResponse> inputs = createPostResponseList(4);
+        doReturn(Observable.just(inputs)).when(api).getTopPostsBySearch(anyString());
+        repo.getTopPostsWithFilter("search")
+            .test().assertNoErrors().assertValue(new Predicate<List<PostItem>>() {
+            @Override
+            public boolean test(@NonNull List<PostItem> postItems) throws Exception {
+                return postItems.size() == inputs.size();
+            }
+        });
+        verify(api).getTopPostsBySearch(eq("search"));
+    }
+
+    @Test
     public void getRecommendedPosts_returns_list_of_post_items_with_expected_count() throws Exception {
         final List<PostResponse> inputs = createPostResponseList(2);
         doReturn(Observable.just(inputs)).when(api).getRecommendations();
@@ -108,6 +135,20 @@ public class PostRepositoryImplTest extends BaseUnitTest {
             }
         });
         verify(api).getRecommendations();
+    }
+
+    @Test
+    public void getRecommendedPostsWithFilter_returns_list_of_post_items_with_expected_count() throws Exception {
+        final List<PostResponse> inputs = createPostResponseList(2);
+        doReturn(Observable.just(inputs)).when(api).getRecommendationsBySearch(anyString());
+        repo.getRecommendedPostsWithFilter("search")
+            .test().assertNoErrors().assertValue(new Predicate<List<PostItem>>() {
+            @Override
+            public boolean test(@NonNull List<PostItem> postItems) throws Exception {
+                return postItems.size() == inputs.size();
+            }
+        });
+        verify(api).getRecommendationsBySearch(eq("search"));
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.koalatea.thehollidayinn.softwareengineeringdaily.data.remote;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import java.util.Map;
 
 /**
@@ -27,5 +28,10 @@ public class EpisodeCategoryRepo {
 
   public String getCategoryNameFromId(@NonNull int id) {
     return categoryMap.get(id);
+  }
+
+  @VisibleForTesting
+  void addCategory(int id, @NonNull String categoryName) {
+     categoryMap.put(id, categoryName);
   }
 }

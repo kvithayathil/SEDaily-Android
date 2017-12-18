@@ -28,10 +28,10 @@ class PostRepositoryImpl implements PostRepository {
     @VisibleForTesting
     private final PostItemMapper mapper;
 
-  PostRepositoryImpl(@NonNull EpisodePostNetworkService api, @NonNull PostItemMapper mapper) {
-        this.api = api;
-        this.mapper = mapper;
-    }
+    PostRepositoryImpl(@NonNull EpisodePostNetworkService api, @NonNull PostItemMapper mapper) {
+          this.api = api;
+          this.mapper = mapper;
+      }
 
     @Override
     public Observable<List<PostItem>> getPosts() {
@@ -46,15 +46,26 @@ class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Observable<List<PostItem>> getPostByCategory(@NonNull String categoryId) {
+    public Observable<List<PostItem>> getPostByCategory(long categoryId) {
         return api.getPostsByCategory(categoryId)
                 .map(new Function<List<PostResponse>, List<PostItem>>() {
-                    @Override
-                    public List<PostItem> apply(@NonNull List<PostResponse> postResponses)
-                            throws Exception {
-                        return mapper.mapAll(postResponses);
-                    }
+                  @Override public List<PostItem> apply(List<PostResponse> postResponses)
+                      throws Exception {
+                    return mapper.mapAll(postResponses);
+                  }
                 });
+    }
+
+    @Override
+    public Observable<List<PostItem>> getPostsByCategoryWithFilter(long categoryId,
+        String filter) {
+      return api.getPostByCategoryAndSearch(categoryId, filter)
+          .map(new Function<List<PostResponse>, List<PostItem>>() {
+            @Override public List<PostItem> apply(List<PostResponse> postResponses)
+                throws Exception {
+              return mapper.mapAll(postResponses);
+            }
+          });
     }
 
     @Override
@@ -69,25 +80,25 @@ class PostRepositoryImpl implements PostRepository {
                 });
     }
 
-  @Override
-  public Completable upVote(@NonNull final String postId) {
-    return api.upVote(postId).doOnComplete(new Action() {
-      @Override
-      public void run() throws Exception {
-        SDEApp.component().analyticsFacade().trackUpVote(postId);
-      }
-    });
-  }
+    @Override
+    public Completable upVote(@NonNull final String postId) {
+      return api.upVote(postId).doOnComplete(new Action() {
+        @Override
+        public void run() throws Exception {
+          SDEApp.component().analyticsFacade().trackUpVote(postId);
+        }
+      });
+    }
 
-  @Override
-  public Completable downVote(@NonNull final String postId) {
-    return api.downVote(postId).doOnComplete(new Action() {
-      @Override
-      public void run() throws Exception {
-        SDEApp.component().analyticsFacade().trackDownVote(postId);
-      }
-    });
-  }
+    @Override
+    public Completable downVote(@NonNull final String postId) {
+      return api.downVote(postId).doOnComplete(new Action() {
+        @Override
+        public void run() throws Exception {
+          SDEApp.component().analyticsFacade().trackDownVote(postId);
+        }
+      });
+    }
 
     @Override
     public Observable<List<PostItem>> getTopPosts() {
@@ -102,6 +113,18 @@ class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
+    public Observable<List<PostItem>> getTopPostsWithFilter(String filter) {
+      return api.getTopPostsBySearch(filter)
+          .map(new Function<List<PostResponse>, List<PostItem>>() {
+            @Override
+            public List<PostItem> apply(@NonNull List<PostResponse> postResponses)
+                throws Exception {
+              return mapper.mapAll(postResponses);
+            }
+          });
+    }
+
+    @Override
     public Observable<List<PostItem>> getRecommendedPosts() {
         return api.getRecommendations()
                 .map(new Function<List<PostResponse>, List<PostItem>>() {
@@ -111,5 +134,17 @@ class PostRepositoryImpl implements PostRepository {
                         return mapper.mapAll(postResponses);
                     }
                 });
+    }
+
+    @Override
+    public Observable<List<PostItem>> getRecommendedPostsWithFilter(String filter) {
+      return api.getRecommendationsBySearch(filter)
+          .map(new Function<List<PostResponse>, List<PostItem>>() {
+            @Override
+            public List<PostItem> apply(@NonNull List<PostResponse> postResponses)
+                throws Exception {
+              return mapper.mapAll(postResponses);
+            }
+          });
     }
 }

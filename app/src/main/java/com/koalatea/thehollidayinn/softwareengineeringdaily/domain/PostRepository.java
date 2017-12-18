@@ -23,7 +23,16 @@ public interface PostRepository {
      * @param categoryId id of the category to filter by
      * @return List of {@link PostItem}
      */
-    Observable<List<PostItem>> getPostByCategory(@NonNull String categoryId);
+    Observable<List<PostItem>> getPostByCategory(long categoryId);
+
+    /**
+     * Get all posts from a specific category with a string filter
+     * @param categoryId id of the category to filter by
+     * @param filter string for additional filtering
+     * @return List of {@link PostItem}
+     */
+    Observable<List<PostItem>> getPostsByCategoryWithFilter(long categoryId,
+        String filter);
 
     /**
      * Get posts that fall within the matching search filter
@@ -53,8 +62,22 @@ public interface PostRepository {
     Observable<List<PostItem>> getTopPosts();
 
     /**
+     * Get a list of the most popular posts with additonal search filtering
+     * @param filter string for additional filtering
+     * @return List of {@link PostItem}
+     */
+    Observable<List<PostItem>> getTopPostsWithFilter(String filter);
+
+    /**
      * Get a list of recommended posts
      * @return List of {@link PostItem}
      */
     Observable<List<PostItem>> getRecommendedPosts();
+
+    /**
+     * Get a list of recommended posts
+     * @param filter string for additional filtering
+     * @return List of {@link PostItem}
+     */
+    Observable<List<PostItem>> getRecommendedPostsWithFilter(String filter);
 }
