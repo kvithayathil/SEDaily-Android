@@ -12,10 +12,12 @@ import com.koalatea.thehollidayinn.softwareengineeringdaily.data.preference.Auth
 import com.koalatea.thehollidayinn.softwareengineeringdaily.data.preference.AuthPreferenceImpl;
 
 import com.koalatea.thehollidayinn.softwareengineeringdaily.data.remote.EpisodeCategoryRepo;
+import com.koalatea.thehollidayinn.softwareengineeringdaily.utils.LocalTextUtils;
 import dagger.Module;
 import dagger.Provides;
 import java.util.HashMap;
 import java.util.Map;
+import javax.inject.Named;
 
 /**
  * Created by Kurian on 26-Sep-17.
@@ -23,9 +25,11 @@ import java.util.Map;
 @Module
 public class DataModule {
 
+    public static final String DATA_CATEGORY_ID_MAP = "named_category_id_map";
 
     @Provides
     @AppScope
+    @Named(DATA_CATEGORY_ID_MAP)
     Map<Integer, String> providesCategoryIdMap(@NonNull Resources resources) {
         final Map<Integer, String> map = new HashMap<>();
         final int[] idArray = resources.getIntArray(R.array.category_id_array);
@@ -51,7 +55,8 @@ public class DataModule {
 
     @Provides
     @AppScope
-    EpisodeCategoryRepo providesEpisodeCategoryRepo(@NonNull Map<Integer, String> map) {
-        return new EpisodeCategoryRepo(map);
+    EpisodeCategoryRepo providesEpisodeCategoryRepo(@NonNull Map<Integer, String> map, @NonNull
+        LocalTextUtils textUtils) {
+        return new EpisodeCategoryRepo(map, textUtils);
     }
 }

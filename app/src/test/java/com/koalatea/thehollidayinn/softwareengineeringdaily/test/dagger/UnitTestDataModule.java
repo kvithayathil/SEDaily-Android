@@ -3,11 +3,13 @@ package com.koalatea.thehollidayinn.softwareengineeringdaily.test.dagger;
 import com.koalatea.thehollidayinn.softwareengineeringdaily.app.AppScope;
 import com.koalatea.thehollidayinn.softwareengineeringdaily.data.mapper.PostItemMapper;
 import com.koalatea.thehollidayinn.softwareengineeringdaily.data.preference.AuthPreference;
-import com.koalatea.thehollidayinn.softwareengineeringdaily.data.preference.AuthPreferenceImpl;
-
 import dagger.Module;
 import dagger.Provides;
+import java.util.HashMap;
+import java.util.Map;
+import javax.inject.Named;
 
+import static com.koalatea.thehollidayinn.softwareengineeringdaily.data.DataModule.DATA_CATEGORY_ID_MAP;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
@@ -16,6 +18,13 @@ import static org.mockito.Mockito.spy;
  */
 @Module
 public class UnitTestDataModule {
+
+    @Provides
+    @AppScope
+    @Named(DATA_CATEGORY_ID_MAP)
+    Map<Integer, String> providesCategoryIdMap() {
+        return new HashMap<>();
+    }
 
     @Provides
     @AppScope
